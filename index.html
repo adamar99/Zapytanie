@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8">
-  <title>Walentynka 💘</title>
+  <title>Zapytanie</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
@@ -26,7 +26,7 @@
 
   <img id="mainImage" src="https://media.tenor.com/VIChDQ6ejRQAAAAj/jumping-bear-hearts-no-png.gif" />
 
-  <h1 id="question">Zostaniesz moją walentynką? 💘</h1>
+  <h1 id="question">Czy 14 lutego będziesz w Polsce?</h1>
 
   <div>
     <button id="yesBtn" style="background-color: green; color: white;">Tak</button>
@@ -45,6 +45,7 @@
     ];
 
     let noClicks = 0;
+    let stage = 1; // 1 = Polska, 2 = Francja, 3 = Walentynka
 
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
@@ -52,19 +53,62 @@
     const image = document.getElementById("mainImage");
 
     noBtn.addEventListener("click", () => {
-      noClicks++;
-      noBtn.textContent = noPhrases[Math.min(noClicks, noPhrases.length - 1)];
-      yesBtn.style.fontSize = (16 + noClicks * 6) + "px";
+      if (stage === 1) {
+        // Nie -> pytanie o Francję
+        stage = 2;
+        question.textContent = "Będziesz we Francji?";
+        noClicks = 0;
+        yesBtn.style.fontSize = "18px";
+        noBtn.textContent = "Nie";
+        return;
+      }
+
+      if (stage === 2) {
+        // Nie -> klasyczne smutne odpowiedzi
+        noClicks++;
+        noBtn.textContent = noPhrases[Math.min(noClicks, noPhrases.length - 1)];
+        yesBtn.style.fontSize = (18 + noClicks * 6) + "px";
+        return;
+      }
+
+      if (stage === 3) {
+        // Klasyczne "Nie" przy walentynce
+        noClicks++;
+        noBtn.textContent = noPhrases[Math.min(noClicks, noPhrases.length - 1)];
+        yesBtn.style.fontSize = (18 + noClicks * 6) + "px";
+      }
     });
 
     yesBtn.addEventListener("click", () => {
-      image.src = "https://media.tenor.com/f1xnRxTRxLAAAAAj/bears-with-kisses-bg.gif";
-      question.textContent = "Yay!!! 💖🎉";
-      noBtn.style.display = "none";
-      yesBtn.style.display = "none";
+      if (stage === 1) {
+        // Tak w Polsce -> od razu walentynka
+        stage = 3;
+        question.textContent = "Czy zostaniesz moją walentynką?";
+        noClicks = 0;
+        yesBtn.style.fontSize = "18px";
+        noBtn.textContent = "Nie";
+        return;
+      }
+
+      if (stage === 2) {
+        // Tak we Francji -> walentynka
+        stage = 3;
+        question.textContent = "Czy zostaniesz moją walentynką?";
+        noClicks = 0;
+        yesBtn.style.fontSize = "18px";
+        noBtn.textContent = "Nie";
+        return;
+      }
+
+      if (stage === 3) {
+        // Finał ❤️
+        image.src = "https://media.tenor.com/f1xnRxTRxLAAAAAj/bears-with-kisses-bg.gif";
+        question.textContent = "Yay!!! 💖🎉";
+        noBtn.style.display = "none";
+        yesBtn.style.display = "none";
+      }
     });
   </script>
 
 </body>
-
 </html>
