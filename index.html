@@ -111,7 +111,7 @@
         // NIE → pytanie o bycie walentynką
         stage = "walentynka";
         image.src = "https://media1.tenor.com/m/FprPSoVq8cYAAAAC/blushing-in-love.gif";
-        question.textContent = "Czy zostaniesz moją walentynką?";
+        question.textContent = "Czy chciałabyś zostać moją walentynką?";
         resetButtons();
         return;
       }
@@ -119,7 +119,7 @@
       if (stage === "walentynka" || stage === "walentynka_po_powrocie") {
         noClicks++;
         noBtn.textContent = noPhrases[Math.min(noClicks, noPhrases.length - 1)];
-        yesBtn.style.fontSize = (18 + noClicks * 18) + "px";
+        yesBtn.style.fontSize = (18 + noClicks * 22) + "px";
         return;
       }
 
@@ -144,7 +144,7 @@
       if (stage === "polska") {
         stage = "walentynka";
         image.src = "https://media1.tenor.com/m/FprPSoVq8cYAAAAC/blushing-in-love.gif";
-        question.textContent = "Czy zostaniesz moją walentynką?";
+        question.textContent = "Czy chciałabyś zostać moją walentynką?";
         resetButtons();
         return;
       }
@@ -195,6 +195,7 @@
 
 </body>
 </html>
+
 
 
 
