@@ -40,11 +40,18 @@
     const noPhrases = [
       "Nie 💔",
       "Proszę? 🥺",
-      "Ale bylibyśmy słodcy razem! 💕",
       "Jeszcze jedna szansa?",
-      "Nie łam mi serca :(",
+      "Może warto się zastanowić? 🤭",
+      "Nie do końca? 😌",
+      "Chyba się wahasz? 😇",
+      "Dajmy temu drugą szansę! 🥺",
+      "Hmm, może się nad tym zastanów? 😄",
+      "Proszę? 🥺",
+      "Może jednak warto spróbować? 🙂",
+      "Jeszcze chwila na decyzję? 😅",
+      "Chwila namysłu nie zaszkodzi 🤭",
       "Może jednak?",
-      "Jestem delikatny, nie rób mi tego 🥲",
+      "Nie do końca powiedziane 'nie'? 😌",
     ];
 
     let noClicks = 0;
@@ -76,6 +83,7 @@
       if (stage === "polska") {
         stage = "francja";
         question.textContent = "Będziesz we Francji?";
+        image.src = "https://media1.tenor.com/m/uXC1GUAtlrwAAAAC/cat-devon-rex-paris-france-eiffel-tower-beret-hat-bonjour-cute.gif";
         resetButtons();
         return;
       }
@@ -83,6 +91,7 @@
       if (stage === "francja") {
         stage = "walentynki_plany";
         question.textContent = "Czy masz w jakiś sposób zaplanowane Walentynki?";
+        image.src = "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGg1OWZlbDh6anBtcGQwY2xhNjk3NzA4dnJtY2puOGNnM25tdm0xYSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/wKQRIoFXsQIGA/giphy.gif";
         resetButtons();
         return;
       }
@@ -120,6 +129,7 @@
 
       if (stage === "francja") {
         stage = "dodatkowe_pytanie";
+        image.src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYm55ZTF3eDB6eTZ2NXJ3OHo2dHhnZHBkaGQxeXNsZmh6cGszZWhxdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT0xeuOy2Fcl9vDGiA/giphy.gif";
         question.textContent = "Szkoda, a mogę zadać Ci pytanie dodatkowe?";
         resetButtons();
         return;
@@ -152,4 +162,5 @@
 
 </body>
 </html>
+
 
