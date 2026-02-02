@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Walentynka 💘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #fff0f5;
+      text-align: center;
+      padding-top: 40px;
+    }
+    button {
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 18px;
+      padding: 12px 20px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <img id="mainImage" src="https://media.tenor.com/VIChDQ6ejRQAAAAj/jumping-bear-hearts-no-png.gif" />
+
+  <h1 id="question">Zostaniesz moją walentynką? 💘</h1>
+
+  <div>
+    <button id="yesBtn" style="background-color: green; color: white;">Tak</button>
+    <button id="noBtn" style="background-color: red; color: white;">Nie</button>
+  </div>
+
+  <script>
+    const noPhrases = [
+      "Nie 💔",
+      "Proszę? 🥺",
+      "Ale bylibyśmy słodcy razem! 💕",
+      "Jeszcze jedna szansa?",
+      "Nie łam mi serca :(",
+      "Może jednak?",
+      "Jestem delikatny, nie rób mi tego 🥲",
+    ];
+
+    let noClicks = 0;
+
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const question = document.getElementById("question");
+    const image = document.getElementById("mainImage");
+
+    noBtn.addEventListener("click", () => {
+      noClicks++;
+      noBtn.textContent = noPhrases[Math.min(noClicks, noPhrases.length - 1)];
+      yesBtn.style.fontSize = (16 + noClicks * 6) + "px";
+    });
+
+    yesBtn.addEventListener("click", () => {
+      image.src = "https://media.tenor.com/f1xnRxTRxLAAAAAj/bears-with-kisses-bg.gif";
+      question.textContent = "Yay!!! 💖🎉";
+      noBtn.style.display = "none";
+      yesBtn.style.display = "none";
+    });
+  </script>
+
+</body>
+</html>
