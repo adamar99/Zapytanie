@@ -20,17 +20,20 @@
       padding: 12px 20px;
       margin: 10px;
     }
+    img {
+      max-width: 200px;
+    }
   </style>
 </head>
 <body>
 
   <img id="mainImage" src="https://media1.tenor.com/m/cbG6dP8SWZgAAAAC/think-deep.gif" />
 
-  <h1 id="question">Czy 14 lutego będziesz w Polsce?</h1>
+  <h1 id="question">Hejka 👋</h1>
 
   <div>
-    <button id="yesBtn" style="background-color: green; color: white;">Tak</button>
-    <button id="noBtn" style="background-color: red; color: white;">Nie</button>
+    <button id="yesBtn" style="background-color: green; color: white;">Hej</button>
+    <button id="noBtn" style="background-color: red; color: white;">Spadaj</button>
   </div>
 
   <script>
@@ -45,7 +48,7 @@
     ];
 
     let noClicks = 0;
-    let stage = "polska";
+    let stage = "start";
 
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
@@ -57,9 +60,18 @@
       yesBtn.style.fontSize = "18px";
       noBtn.textContent = "Nie";
       yesBtn.textContent = "Tak";
+      noBtn.style.display = "inline-block";
+      yesBtn.style.display = "inline-block";
     }
 
     noBtn.addEventListener("click", () => {
+      if (stage === "start") {
+        question.textContent = "Rozumiem. Mimo to życzę Ci miłego dnia 😊";
+        noBtn.style.display = "none";
+        yesBtn.style.display = "none";
+        return;
+      }
+
       if (stage === "polska") {
         stage = "francja";
         question.textContent = "Będziesz we Francji?";
@@ -75,8 +87,7 @@
       }
 
       if (stage === "dodatkowe_pytanie") {
-        stage = "koniec_grzeczny";
-        question.textContent = "Rozumiem. Życzę Ci miłego wyjazdu i miłego dnia.";
+        question.textContent = "Rozumiem. Życzę Ci miłego wyjazdu i miłego dnia 😊";
         noBtn.style.display = "none";
         yesBtn.style.display = "none";
         return;
@@ -90,6 +101,14 @@
     });
 
     yesBtn.addEventListener("click", () => {
+      if (stage === "start") {
+        stage = "polska";
+        image.src = "https://media.tenor.com/VIChDQ6ejRQAAAAj/jumping-bear-hearts-no-png.gif";
+        question.textContent = "Czy 14 lutego będziesz w Polsce?";
+        resetButtons();
+        return;
+      }
+
       if (stage === "polska") {
         stage = "walentynka";
         question.textContent = "Czy zostaniesz moją walentynką?";
@@ -129,4 +148,3 @@
 
 </body>
 </html>
-
