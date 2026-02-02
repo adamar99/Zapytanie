@@ -27,7 +27,7 @@
 </head>
 <body>
 
-  <img id="mainImage" src="https://media1.tenor.com/m/zgYEGB6L5ooAAAAd/hi-hello.gif" />
+  <img id="mainImage" src="https://media1.tenor.com/m/cbG6dP8SWZgAAAAC/think-deep.gif" />
 
   <h1 id="question">Hejka 👋</h1>
 
@@ -38,19 +38,19 @@
 
   <script>
     const noPhrases = [
-      "Nie 💔",
-      "Proszę? 🥺",
-      "Jeszcze jedna szansa?",
-      "Może warto się zastanowić? 🤭",
-      "Nie do końca? 😌",
-      "Chyba się wahasz? 😇",
-      "Dajmy temu drugą szansę! 🥺",
-      "Hmm, może się nad tym zastanów? 😄",
-      "Proszę? 🥺",
-      "Może jednak warto spróbować? 🙂",
-      "Jeszcze chwila na decyzję? 😅",
-      "Chwila namysłu nie zaszkodzi 🤭",
-      "Może jednak?",
+      "Nie 💔", 
+      "Proszę? 🥺", 
+      "Jeszcze jedna szansa?", 
+      "Może warto się zastanowić? 🤭", 
+      "Nie do końca? 😌", 
+      "Chyba się wahasz? 😇", 
+      "Dajmy temu drugą szansę! 🥺", 
+      "Hmm, może się nad tym zastanów? 😄", 
+      "Proszę? 🥺", 
+      "Może jednak warto spróbować? 🙂", 
+      "Jeszcze chwila na decyzję? 😅", 
+      "Chwila namysłu nie zaszkodzi 🤭", 
+      "Może jednak?", 
       "Nie do końca powiedziane 'nie'? 😌",
     ];
 
@@ -73,7 +73,7 @@
 
     noBtn.addEventListener("click", () => {
       if (stage === "start") {
-        image.src = "https://media1.tenor.com/m/vmAUYtK36rMAAAAC/flowers-valentine.gif";
+        image.src = "https://media1.tenor.com/m/zgYEGB6L5ooAAAAd/hi-hello.gif";
         question.textContent = "Rozumiem. Mimo to życzę Ci miłego dnia 😊";
         noBtn.style.display = "none";
         yesBtn.style.display = "none";
@@ -83,13 +83,12 @@
       if (stage === "polska") {
         stage = "francja";
         question.textContent = "Będziesz we Francji?";
-        image.src = "https://media1.tenor.com/m/uXC1GUAtlrwAAAAC/cat-devon-rex-paris-france-eiffel-tower-beret-hat-bonjour-cute.gif";
         resetButtons();
         return;
       }
 
       if (stage === "francja") {
-        // jeśli użytkownik mówi NIE → pytanie o spotkanie w Polsce
+        // Jeśli NIE → pytanie o spotkanie w Polsce
         stage = "spotkanie_w_polsce";
         question.textContent = "Może chciałabyś się jednak spotkać w tym czasie w Polsce?";
         resetButtons();
@@ -97,7 +96,7 @@
       }
 
       if (stage === "spotkanie_w_polsce") {
-        // jeśli użytkownik mówi NIE → koniec
+        // NIE → zakończenie
         stage = "koniec";
         question.textContent = "Rozumiem. Mimo to życzę Ci miłego dnia 😊";
         noBtn.style.display = "none";
@@ -106,16 +105,31 @@
       }
 
       if (stage === "walentynki_plany") {
+        // NIE → pytanie o bycie walentynką
+        stage = "walentynka";
+        question.textContent = "Czy zostaniesz moją walentynką?";
+        resetButtons();
+        return;
+      }
+
+      if (stage === "walentynka" || stage === "walentynka_po_powrocie") {
         noClicks++;
         noBtn.textContent = noPhrases[Math.min(noClicks, noPhrases.length - 1)];
-        yesBtn.style.fontSize = (18 + noClicks * 6) + "px";
+        yesBtn.style.fontSize = (18 + noClicks * 12) + "px";
+        return;
+      }
+
+      if (stage === "dodatkowe_pytanie") {
+        question.textContent = "Rozumiem. Życzę Ci miłego wyjazdu i miłego dnia 😊";
+        noBtn.style.display = "none";
+        yesBtn.style.display = "none";
+        return;
       }
     });
 
     yesBtn.addEventListener("click", () => {
       if (stage === "start") {
         stage = "polska";
-        image.src = "https://media1.tenor.com/m/cbG6dP8SWZgAAAAC/think-deep.gif";
         question.textContent = "Czy 14 lutego będziesz w Polsce?";
         resetButtons();
         return;
@@ -129,7 +143,6 @@
       }
 
       if (stage === "francja") {
-        // jeśli użytkownik mówi TAK → wątek dodatkowego pytania
         stage = "dodatkowe_pytanie";
         question.textContent = "Szkoda, a mogę zadać Ci pytanie dodatkowe?";
         resetButtons();
@@ -137,7 +150,6 @@
       }
 
       if (stage === "spotkanie_w_polsce") {
-        // jeśli użytkownik mówi TAK → pytanie o plany na Walentynki
         stage = "walentynki_plany";
         question.textContent = "A posiadasz jakieś plany na Walentynki?";
         resetButtons();
@@ -145,22 +157,29 @@
       }
 
       if (stage === "walentynki_plany") {
-        // jeśli użytkownik mówi TAK → Mam nadzieję, że spędzisz miło ten dzień
-        stage = "walentynka";
+        // TAK → koniec, życzenia miłego dnia
+        stage = "koniec_milego_dnia";
         question.textContent = "Mam nadzieję, że spędzisz miło ten dzień 💖";
-        resetButtons();
+        noBtn.style.display = "none";
+        yesBtn.style.display = "none";
         return;
       }
 
       if (stage === "walentynka" || stage === "walentynka_po_powrocie") {
-        image.src = "https://media.tenor.com/f1xnRxTRxLAAAAAj/bears-with-kisses-bg.gif";
         question.textContent = "Yay!!! 💖🎉";
         noBtn.style.display = "none";
         yesBtn.style.display = "none";
+        return;
+      }
+
+      if (stage === "dodatkowe_pytanie") {
+        stage = "walentynka_po_powrocie";
+        question.textContent = "Czy zostaniesz moją Walentynką po powrocie do Polski?";
+        resetButtons();
+        return;
       }
     });
   </script>
 
 </body>
 </html>
-
