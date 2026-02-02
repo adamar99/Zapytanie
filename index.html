@@ -89,24 +89,26 @@
       }
 
       if (stage === "francja") {
-        stage = "walentynki_plany";
-        question.textContent = "Czy masz w jakiś sposób zaplanowane Walentynki?";
-        image.src = "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGg1OWZlbDh6anBtcGQwY2xhNjk3NzA4dnJtY2puOGNnM25tdm0xYSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/wKQRIoFXsQIGA/giphy.gif";
+        // jeśli użytkownik mówi NIE → pytanie o spotkanie w Polsce
+        stage = "spotkanie_w_polsce";
+        question.textContent = "Może chciałabyś się jednak spotkać w tym czasie w Polsce?";
         resetButtons();
         return;
       }
 
-      if (stage === "dodatkowe_pytanie") {
-        question.textContent = "Rozumiem. Życzę Ci miłego wyjazdu i miłego dnia 😊";
+      if (stage === "spotkanie_w_polsce") {
+        // jeśli użytkownik mówi NIE → koniec
+        stage = "koniec";
+        question.textContent = "Rozumiem. Mimo to życzę Ci miłego dnia 😊";
         noBtn.style.display = "none";
         yesBtn.style.display = "none";
         return;
       }
 
-      if (stage === "walentynka" || stage === "walentynka_po_powrocie" || stage === "walentynki_plany") {
+      if (stage === "walentynki_plany") {
         noClicks++;
         noBtn.textContent = noPhrases[Math.min(noClicks, noPhrases.length - 1)];
-        yesBtn.style.fontSize = (18 + noClicks * 12) + "px";
+        yesBtn.style.fontSize = (18 + noClicks * 6) + "px";
       }
     });
 
@@ -121,32 +123,31 @@
 
       if (stage === "polska") {
         stage = "walentynka";
-        image.src = "https://media1.tenor.com/m/KGHWIONAIgcAAAAC/mlp-my-little-pony.gif";
         question.textContent = "Czy zostaniesz moją walentynką?";
         resetButtons();
         return;
       }
 
       if (stage === "francja") {
+        // jeśli użytkownik mówi TAK → wątek dodatkowego pytania
         stage = "dodatkowe_pytanie";
-        image.src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYm55ZTF3eDB6eTZ2NXJ3OHo2dHhnZHBkaGQxeXNsZmh6cGszZWhxdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT0xeuOy2Fcl9vDGiA/giphy.gif";
         question.textContent = "Szkoda, a mogę zadać Ci pytanie dodatkowe?";
         resetButtons();
         return;
       }
 
-      if (stage === "dodatkowe_pytanie") {
-        stage = "walentynka_po_powrocie";
-        image.src = "https://media1.tenor.com/m/KGHWIONAIgcAAAAC/mlp-my-little-pony.gif";
-        question.textContent = "Czy zostaniesz moją Walentynką po powrocie do Polski?";
+      if (stage === "spotkanie_w_polsce") {
+        // jeśli użytkownik mówi TAK → pytanie o plany na Walentynki
+        stage = "walentynki_plany";
+        question.textContent = "A posiadasz jakieś plany na Walentynki?";
         resetButtons();
         return;
       }
 
       if (stage === "walentynki_plany") {
+        // jeśli użytkownik mówi TAK → Mam nadzieję, że spędzisz miło ten dzień
         stage = "walentynka";
-        image.src = "https://media1.tenor.com/m/KGHWIONAIgcAAAAC/mlp-my-little-pony.gif";
-        question.textContent = "Czy zostaniesz moją walentynką?";
+        question.textContent = "Mam nadzieję, że spędzisz miło ten dzień 💖";
         resetButtons();
         return;
       }
@@ -162,6 +163,4 @@
 
 </body>
 </html>
-
-
 
