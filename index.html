@@ -45,34 +45,44 @@
     ];
 
     let noClicks = 0;
-    let stage = 1; // 1 = Polska, 2 = Francja, 3 = Walentynka
+    let stage = "polska";
 
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
     const question = document.getElementById("question");
     const image = document.getElementById("mainImage");
 
+    function resetButtons() {
+      noClicks = 0;
+      yesBtn.style.fontSize = "18px";
+      noBtn.textContent = "Nie";
+      yesBtn.textContent = "Tak";
+    }
+
     noBtn.addEventListener("click", () => {
-      if (stage === 1) {
-        // Nie -> pytanie o Francję
-        stage = 2;
+      if (stage === "polska") {
+        stage = "francja";
         question.textContent = "Będziesz we Francji?";
-        noClicks = 0;
-        yesBtn.style.fontSize = "18px";
-        noBtn.textContent = "Nie";
+        resetButtons();
         return;
       }
 
-      if (stage === 2) {
-        // Nie -> klasyczne smutne odpowiedzi
-        noClicks++;
-        noBtn.textContent = noPhrases[Math.min(noClicks, noPhrases.length - 1)];
-        yesBtn.style.fontSize = (18 + noClicks * 6) + "px";
+      if (stage === "francja") {
+        stage = "walentynki_plany";
+        question.textContent = "Czy masz w jakiś sposób zaplanowane Walentynki?";
+        resetButtons();
         return;
       }
 
-      if (stage === 3) {
-        // Klasyczne "Nie" przy walentynce
+      if (stage === "dodatkowe_pytanie") {
+        stage = "koniec_grzeczny";
+        question.textContent = "Rozumiem. Życzę Ci miłego wyjazdu i miłego dnia.";
+        noBtn.style.display = "none";
+        yesBtn.style.display = "none";
+        return;
+      }
+
+      if (stage === "walentynka" || stage === "walentynka_po_powrocie" || stage === "walentynki_plany") {
         noClicks++;
         noBtn.textContent = noPhrases[Math.min(noClicks, noPhrases.length - 1)];
         yesBtn.style.fontSize = (18 + noClicks * 6) + "px";
@@ -80,28 +90,35 @@
     });
 
     yesBtn.addEventListener("click", () => {
-      if (stage === 1) {
-        // Tak w Polsce -> od razu walentynka
-        stage = 3;
+      if (stage === "polska") {
+        stage = "walentynka";
         question.textContent = "Czy zostaniesz moją walentynką?";
-        noClicks = 0;
-        yesBtn.style.fontSize = "18px";
-        noBtn.textContent = "Nie";
+        resetButtons();
         return;
       }
 
-      if (stage === 2) {
-        // Tak we Francji -> walentynka
-        stage = 3;
-        question.textContent = "Czy zostaniesz moją walentynką?";
-        noClicks = 0;
-        yesBtn.style.fontSize = "18px";
-        noBtn.textContent = "Nie";
+      if (stage === "francja") {
+        stage = "dodatkowe_pytanie";
+        question.textContent = "Szkoda, a mogę zadać Ci pytanie dodatkowe?";
+        resetButtons();
         return;
       }
 
-      if (stage === 3) {
-        // Finał ❤️
+      if (stage === "dodatkowe_pytanie") {
+        stage = "walentynka_po_powrocie";
+        question.textContent = "Czy zostaniesz moją Walentynką po powrocie do Polski?";
+        resetButtons();
+        return;
+      }
+
+      if (stage === "walentynki_plany") {
+        stage = "walentynka";
+        question.textContent = "Czy zostaniesz moją walentynką?";
+        resetButtons();
+        return;
+      }
+
+      if (stage === "walentynka" || stage === "walentynka_po_powrocie") {
         image.src = "https://media.tenor.com/f1xnRxTRxLAAAAAj/bears-with-kisses-bg.gif";
         question.textContent = "Yay!!! 💖🎉";
         noBtn.style.display = "none";
